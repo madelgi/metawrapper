@@ -1,0 +1,12 @@
+target/
+metawrapper.iml
+dependencies/
+dependency-reduced-pom.xml
+example.yml
+.env
+*.iml
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
