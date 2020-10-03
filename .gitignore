@@ -5,8 +5,10 @@ dependency-reduced-pom.xml
 example.yml
 .env
 *.iml
+.cache
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+

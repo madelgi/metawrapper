@@ -2,26 +2,31 @@
 
 This small library provides a service for querying the MetaMap API.
 
-
 ## Installation
 
-### Install Dependencies
+### Preqrequisits
 
-To use metawrapper, you must first
-1. Install metamap
-2. Install mysql
-3. Download and install metathesaurus, use database population scripts, use NLM source
+There are a couple of steps you must complete before running metawrapper.
+
+1. **Download MetaMap Docker Version**: MetaWrapper relies on the [MetaMap Docker Image](https://metamap.nlm.nih.gov/DockerImage.shtml).
+   Download the image (2018 version), extract it, and then load it:
+
+   ```bash
+   $ docker load --input /path/to/metamap.dockerimage
+   ```
+
+2. **Download 2018AB UMLS DB Files**: Download the [2018AB UMLS files](https://www.nlm.nih.gov/research/umls/licensedcontent/umlsarchives04.html#2018AB),
+   and follow the instructions for getting a local version of the database running. Unfortunately, this process is not easy to dockerize, so you will
+   need to run the database on the host machine, rather than in a container.
+
+3. **Update config file**: Create a `config.yml` file containing info about the MySQL database and the metamap server.
+   You can use the config.sample.yml as an example -- you shouldn't have to change the metamap host/port, but you will
+   need to fill out information for the MySQL database connection.
 
 
-### Run
+## Run
 
-From the root folder:
-
-```bash
-$ ./bin/metamap_start
-$ mvn package
-$ java -jar target/meta-wrapper-1.0-SNAPSHOT.jar server
-```
+TODO
 
 ## Usage
 

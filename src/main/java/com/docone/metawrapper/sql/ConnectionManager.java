@@ -1,34 +1,29 @@
 package com.docone.metawrapper.sql;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class ConnectionManager {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionManager.class.getName());
+    private static String driverName = "com.mysql.cj.jdbc.Driver";
     private static String url;
-    private static String driverName;
     private static String username;
     private static String password;
 
-    // Initialize from properties file
+    // Initialize from env variables
     static {
-        try (InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("db.properties")) {
-            Properties prop = new Properties();
-            if (input == null) {
-                throw new IOException();
-            }
-            prop.load(input);
-
-            url = prop.getProperty("db.url");
-            driverName = prop.getProperty("db.driver");
-            username = prop.getProperty("db.username");
-            password = prop.getProperty("db.password");
-        } catch (IOException ex) {
-            LOGGER.warning("Unable to get database properties.");
+        try {
+            username = System.getenv("MYSQL_USER");
+            password = System.getenv("MYSQL_PW");
+            url = String.format(
+                    "jdbc:mysql://%s:%s/%s?serverTimezone=UTC&autoReconnect=true&failOverReadOnly=false&maxReconnects=10",
+                    System.getenv("MYSQL_HOST"),
+                    System.getenv("MYSQL_PORT"),
+                    System.getenv("MYSQL_DB")
+            );
+        } catch (Exception e) {
+            LOGGER.warning("Unable to read database credentials. Please make sure your .env is filled out.");
         }
     }
 

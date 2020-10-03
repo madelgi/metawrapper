@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class CPTTreeService {
     private static final Logger LOGGER = Logger.getLogger(CPTTreeService.class.getName());
-    private static final String FPATH = System.getProperty("user.home") + "/.metawrapper/data/";
+    private static final String FPATH = System.getProperty("user.home") + "/.cache/";
     private static final String FNAME = "cpt_flat_tree.cer";
     private static final String ROOT_NAME = "ROOT";
     private static final List<String> ROOT_CODES = Arrays.asList(
@@ -31,13 +31,12 @@ public class CPTTreeService {
         LOGGER.info("Constructing CPTTreeService");
         File dir = new File(FPATH);
         if (!dir.exists()) {
-            LOGGER.info("Creating .metawrapper directory");
+            LOGGER.info("Creating .cache directory");
             if (!dir.mkdirs()) {
-                LOGGER.warning("Failed to create .metawrapper directory");
+                LOGGER.warning("Failed to create .cache directory");
             }
         }
 
-        System.out.println(FPATH + FNAME);
         File f = new File(FPATH + FNAME);
         if (f.exists()) {
             LOGGER.info("Loading CPTTreeService from cache.");
@@ -47,7 +46,7 @@ public class CPTTreeService {
                 ) {
                 this.flatTree = (FlatTree) input.readObject();
             } catch (IOException | ClassNotFoundException ex) {
-                System.out.println(ex);
+                LOGGER.warning("Failed to load CPT tree from cache.");
                 this.flatTree = buildFlatTree();
             }
 
@@ -153,7 +152,6 @@ public class CPTTreeService {
 
             // Multiple hierarchical structures --
             if (childMap.containsKey(currentNode.getHierarchy())) {
-                LOGGER.info("THIS HAPPENS: " + currentNode.getHierarchy());
                 List<String> currentCodes = new ArrayList<>();
                 for (TreeNode cur : childMap.get(currentNode.getHierarchy())) {
                     currentCodes.add(cur.getHierarchy());

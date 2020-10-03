@@ -1,0 +1,20 @@
+version: "3"
+services:
+    metamap:
+        build:
+            context: .
+            dockerfile: ./docker/metamap/Dockerfile
+        ports:
+            - "8066:8066"
+
+    metawrapper:
+        build:
+            context: .
+            dockerfile: ./docker/metawrapper/Dockerfile
+        depends_on:
+            - metamap
+        volumes:
+            - ./.cache:/root/.cache
+        ports:
+            - "8080:8080"
+        network_mode: "host"  # Expects running MySQL db on host.

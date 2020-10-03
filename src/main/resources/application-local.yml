@@ -1,8 +1,0 @@
-database:
-    driverClass: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/umls?serverTimezone=UTC
-    user: mfd
-    password: ''
-metamap:
-    host: localhost
-    port: 8066

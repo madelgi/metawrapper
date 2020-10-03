@@ -50,7 +50,7 @@ public class MeshTreeService {
     private static final String DISEASE_NODE = "C";
     private static final String PSYCH_NODE = "F";
 
-    private static final String FPATH = System.getProperty("user.home") + "/.metawrapper/data/";
+    private static final String FPATH = System.getProperty("user.home") + "/.cache/";
     private static final String FNAME = "mesh_flat_tree.cer";
     private static final Logger LOGGER = Logger.getLogger(RXService.class.getName());
 
@@ -60,7 +60,7 @@ public class MeshTreeService {
     public MeshTreeService(MRConsoDao mrConsoDao) {
         this.mrConsoDao = mrConsoDao;
 
-        LOGGER.info("Constructing CPTTreeService");
+        LOGGER.info("Constructing MeSH tree data");
         File dir = new File(FPATH);
 
         if (!dir.exists()) {
